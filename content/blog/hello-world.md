@@ -1,5 +1,5 @@
 +++
-title = "Hello, World"
+title = "Hello, Friend"
 date = 2025-01-01
 description = "Every blog starts somewhere. This one starts at 4am, with a blinking cursor and a lot of half-finished ideas."
 
