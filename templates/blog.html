@@ -1,16 +1,32 @@
 {% extends "base.html" %}
+{% import "macros.html" as m %}
 
 {% block content %}
-<div class="container">
+{% set tags = get_taxonomy(kind="tags") %}
 
-  {# ── Page header ── #}
+<div class="container-wide">
+
   <header class="page-header">
-    <div class="page-header__eyebrow" aria-hidden="true">// blog</div>
+    <div class="page-header__eyebrow">// archive · 02_blog</div>
     <h1 class="page-header__title">All Posts</h1>
-    {% if section.description %}
-    <p class="page-header__desc">{{ section.description }}</p>
-    {% endif %}
+    <p class="page-header__desc">
+      Everything I've thought worth writing down, sorted by recency.
+      Filter by tag below, or hit <kbd>⌘K</kbd> to search.
+    </p>
   </header>
+
+  {# ── Tag filter chips ── #}
+  <div class="tag-filter-bar">
+    <span class="tag-filter-bar__label">filter:</span>
+    <a class="tag-filter tag-filter--active" href="{{ get_url(path='/blog/') | safe }}">
+      all <span class="tag-filter__count">{{ section.pages | length }}</span>
+    </a>
+    {% for term in tags.items | sort(attribute="name") %}
+    <a class="tag-filter" href="{{ term.permalink | safe }}">
+      #{{ term.name }} <span class="tag-filter__count">{{ term.pages | length }}</span>
+    </a>
+    {% endfor %}
+  </div>
 
   {# ── Post list ── #}
   {% if paginator %}
@@ -20,45 +36,9 @@
   {% endif %}
 
   {% if pages %}
-    <ol class="post-list post-list--full" reversed role="list">
+    <ol class="post-list" reversed role="list">
       {% for page in pages %}
-      <li class="post-list__item">
-        <article class="post-card post-card--list">
-
-          <div class="post-card__meta">
-            <time class="post-card__date" datetime="{{ page.date | date(format='%Y-%m-%d') }}">
-              {{ page.date | date(format="%Y-%m-%d") }}
-            </time>
-            {% if page.extra.reading_time %}
-            <span class="post-card__reading-time">{{ page.extra.reading_time }} min read</span>
-            {% endif %}
-            {% if page.taxonomies.tags %}
-            <div class="post-card__tags">
-              {% for tag in page.taxonomies.tags %}
-              <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}"
-                 class="tag">{{ tag }}</a>
-              {% endfor %}
-            </div>
-            {% endif %}
-          </div>
-
-          <h2 class="post-card__title">
-            <a href="{{ page.permalink | safe }}" class="post-card__link">
-              {{ page.title }}
-            </a>
-          </h2>
-
-          {% if page.description %}
-          <p class="post-card__summary">{{ page.description }}</p>
-          {% elif page.summary %}
-          <p class="post-card__summary">{{ page.summary | striptags | truncate(length=240) }}</p>
-          {% endif %}
-
-          <a href="{{ page.permalink | safe }}" class="post-card__read-more">
-            read more <span aria-hidden="true">→</span>
-          </a>
-        </article>
-      </li>
+        {{ m::post_card(page=page, index=pages | length - loop.index0) }}
       {% endfor %}
     </ol>
 
@@ -66,7 +46,7 @@
     {% if paginator %}
     <nav class="pagination" aria-label="Blog pagination">
       {% if paginator.previous %}
-      <a href="{{ paginator.previous | safe }}" class="pagination__link pagination__link--prev">
+      <a href="{{ paginator.previous | safe }}" class="pagination__link">
         <span aria-hidden="true">←</span> newer
       </a>
       {% else %}
@@ -80,7 +60,7 @@
       </span>
 
       {% if paginator.next %}
-      <a href="{{ paginator.next | safe }}" class="pagination__link pagination__link--next">
+      <a href="{{ paginator.next | safe }}" class="pagination__link">
         older <span aria-hidden="true">→</span>
       </a>
       {% else %}
@@ -93,9 +73,7 @@
 
   {% else %}
     <div class="empty-state">
-      <p class="empty-state__text">
-        <span aria-hidden="true">// </span>no posts yet. check back at 4am.
-      </p>
+      <span aria-hidden="true">// </span>no posts yet. check back at 4am.
     </div>
   {% endif %}
 

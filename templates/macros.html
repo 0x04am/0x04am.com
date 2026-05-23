@@ -1,0 +1,61 @@
+{# ── Helper macros for the 0x04am theme ── #}
+
+{# Zero-pad a number to N digits (defaults to 3). Tera has no built-in pad. #}
+{% macro pad(n, width=3) -%}
+  {%- if width == 2 -%}
+    {%- if n < 10 -%}0{{ n }}{%- else -%}{{ n }}{%- endif -%}
+  {%- else -%}
+    {%- if n < 10 -%}00{{ n }}{%- elif n < 100 -%}0{{ n }}{%- else -%}{{ n }}{%- endif -%}
+  {%- endif -%}
+{%- endmacro %}
+
+{# Section marker line: ┌── label [count] ──┐ #}
+{% macro section_marker(label, count) -%}
+  <div class="section-marker" aria-hidden="true">
+    <span class="section-marker__tick">┌──</span>
+    <span class="section-marker__label">{{ label }}</span>
+    {%- if count is defined and count != "" %}
+    <span class="section-marker__count">[{{ count }}]</span>
+    {%- endif %}
+    <span class="section-marker__line"></span>
+    <span class="section-marker__tick">──┐</span>
+  </div>
+{%- endmacro %}
+
+{# Single post card — used by index, blog, and tag pages #}
+{% macro post_card(page, index) -%}
+  <li class="post-list__item">
+    <a href="{{ page.permalink | safe }}" style="display:block;color:inherit;">
+      <article class="post-card">
+        <div class="post-card__index">{{ self::pad(n=index) }}</div>
+
+        <div class="post-card__date-col">
+          <time class="post-card__date" datetime="{{ page.date | date(format='%Y-%m-%d') }}">
+            {{ page.date | date(format="%Y-%m-%d") }}
+          </time>
+          {%- if page.reading_time %}
+          <span class="post-card__reading-time">{{ page.reading_time }} min</span>
+          {%- endif %}
+        </div>
+
+        <div class="post-card__main">
+          <h2 class="post-card__title">{{ page.title }}</h2>
+          {%- if page.description %}
+          <p class="post-card__summary">{{ page.description }}</p>
+          {%- elif page.summary %}
+          <p class="post-card__summary">{{ page.summary | striptags | truncate(length=200) }}</p>
+          {%- endif %}
+          {%- if page.taxonomies.tags %}
+          <div class="post-card__tags">
+            {%- for tag in page.taxonomies.tags %}
+            <span class="tag">{{ tag }}</span>
+            {%- endfor %}
+          </div>
+          {%- endif %}
+        </div>
+
+        <span class="post-card__arrow" aria-hidden="true">→</span>
+      </article>
+    </a>
+  </li>
+{%- endmacro %}

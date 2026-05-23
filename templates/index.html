@@ -1,108 +1,104 @@
 {% extends "base.html" %}
+{% import "macros.html" as m %}
 
 {% block content %}
-<section class="hero container">
-  {# ── Terminal prompt decoration ── #}
-  <div class="hero__prompt" aria-hidden="true">
-    <span class="prompt__user">root</span><!--
-    --><span class="prompt__at">@</span><!--
-    --><span class="prompt__host">void</span><!--
-    --><span class="prompt__sep">:</span><!--
-    --><span class="prompt__path">~</span><!--
-    --><span class="prompt__dollar">$</span>
-    <span class="prompt__cursor"></span>
+{% set blog = get_section(path="blog/_index.md") %}
+{% set tags = get_taxonomy(kind="tags") %}
+{% set recent = blog.pages | slice(end=5) %}
+
+<section class="hero">
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__bg-grid"></div>
+    <div class="hero__bg-kanji">04AM</div>
   </div>
 
-  {# ── Main heading ── #}
-  <h1 class="hero__title">
-    <span class="hero__title-hex" aria-hidden="true">0x</span><!--
-    --><span class="hero__title-main">04am</span>
-  </h1>
+  <div class="container-wide hero__inner">
+    <div class="hero__eyebrow">
+      <span class="hero__eyebrow-dot"></span>
+      BROADCASTING SINCE 04:00 — NIGHT SHIFT EDITION
+    </div>
 
-  <p class="hero__tagline">{{ config.extra.tagline }}</p>
+    <div class="hero__prompt" aria-hidden="true">
+      <span class="prompt__user">root</span><!--
+      --><span class="prompt__at">@</span><!--
+      --><span class="prompt__host">void</span><!--
+      --><span class="prompt__sep">:</span><!--
+      --><span class="prompt__path">~/blog</span><!--
+      --><span class="prompt__dollar">$</span>
+      <span class="prompt__cmd">cat manifesto.md</span>
+      <span class="prompt__cursor"></span>
+    </div>
 
-  <div class="hero__desc">
-    <p>
-      AI agents · systems code · late-night experiments.<br />
-      Everything written between midnight and dawn.
+    <h1 class="hero__title">
+      <span class="hero__title-hex" aria-hidden="true">0x</span><!--
+      --><span class="hero__title-main">04am</span>
+    </h1>
+
+    <p class="hero__tagline">
+      <span class="hero__tagline-arrow">»</span>{{ config.extra.tagline }}
     </p>
-  </div>
 
-  <div class="hero__actions">
-    <a href="{{ get_url(path='/blog/') | safe }}" class="btn btn--primary">
-      read the blog
-    </a>
-    <a href="{{ get_url(path='/about/') | safe }}" class="btn btn--ghost">
-      about me
-    </a>
+    <div class="hero__desc">
+      <p>
+        <strong>AI agents</strong> · <strong>systems code</strong> · late-night experiments.
+        Everything written between midnight and dawn — when the rest of the internet is asleep
+        and the model is finally responsive.
+      </p>
+    </div>
+
+    <div class="hero__actions">
+      <a href="{{ get_url(path='/blog/') | safe }}" class="btn btn--primary">
+        read the blog <span aria-hidden="true">→</span>
+      </a>
+      <a href="{{ get_url(path='/about/') | safe }}" class="btn btn--ghost">
+        whoami
+      </a>
+    </div>
+
+    <div class="hero__meta">
+      <div class="hero__meta-item">
+        <span class="hero__meta-label">▸ POSTS</span>
+        <span class="hero__meta-value"><span class="accent">{{ m::pad(n=blog.pages | length, width=2) }}</span> published</span>
+      </div>
+      <div class="hero__meta-item">
+        <span class="hero__meta-label">▸ TOPICS</span>
+        <span class="hero__meta-value">{{ tags.items | length }} tags indexed</span>
+      </div>
+      {% if recent | length > 0 %}
+      <div class="hero__meta-item">
+        <span class="hero__meta-label">▸ LAST PUSH</span>
+        <span class="hero__meta-value">{{ recent[0].date | date(format="%Y-%m-%d") }}</span>
+      </div>
+      {% endif %}
+      <div class="hero__meta-item">
+        <span class="hero__meta-label">▸ STATUS</span>
+        <span class="hero__meta-value"><span class="accent">●</span> caffeinated</span>
+      </div>
+    </div>
   </div>
 </section>
 
-{# ── Divider ── #}
-<div class="section-divider container" aria-hidden="true">
-  <span class="divider__line"></span>
-  <span class="divider__label">recent posts</span>
-  <span class="divider__line"></span>
-</div>
-
-{# ── Recent posts ── #}
-<section class="recent-posts container">
-  {% set blog = get_section(path="blog/_index.md") %}
-  {% set recent = blog.pages | slice(end=5) %}
+<div class="container-wide">
+  {{ m::section_marker(label="recent transmissions", count=recent | length) }}
 
   {% if recent %}
     <ol class="post-list" reversed role="list">
       {% for page in recent %}
-      <li class="post-list__item">
-        <article class="post-card">
-          <div class="post-card__meta">
-            <time class="post-card__date" datetime="{{ page.date | date(format='%Y-%m-%d') }}">
-              {{ page.date | date(format="%Y-%m-%d") }}
-            </time>
-            {% if page.taxonomies.tags %}
-            <div class="post-card__tags">
-              {% for tag in page.taxonomies.tags %}
-              <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}"
-                 class="tag">{{ tag }}</a>
-              {% endfor %}
-            </div>
-            {% endif %}
-          </div>
-
-          <h2 class="post-card__title">
-            <a href="{{ page.permalink | safe }}" class="post-card__link">
-              {{ page.title }}
-            </a>
-          </h2>
-
-          {% if page.description %}
-          <p class="post-card__summary">{{ page.description }}</p>
-          {% elif page.summary %}
-          <p class="post-card__summary">{{ page.summary | striptags | truncate(length=200) }}</p>
-          {% endif %}
-
-          <a href="{{ page.permalink | safe }}" class="post-card__read-more">
-            read more <span aria-hidden="true">→</span>
-          </a>
-        </article>
-      </li>
+        {{ m::post_card(page=page, index=recent | length - loop.index0) }}
       {% endfor %}
     </ol>
 
     {% if blog.pages | length > 5 %}
-    <div class="recent-posts__more">
+    <div style="text-align:center; padding: 2rem 0 1rem;">
       <a href="{{ get_url(path='/blog/') | safe }}" class="btn btn--ghost">
-        all posts ({{ blog.pages | length }})
+        ↳ all transmissions ({{ blog.pages | length }})
       </a>
     </div>
     {% endif %}
-
   {% else %}
     <div class="empty-state">
-      <p class="empty-state__text">
-        <span aria-hidden="true">// </span>no posts yet. check back at 4am.
-      </p>
+      <span aria-hidden="true">// </span>no posts yet. check back at 4am.
     </div>
   {% endif %}
-</section>
+</div>
 {% endblock %}

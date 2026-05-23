@@ -12,20 +12,16 @@
     {%- elif section.title -%}
       {{ section.title }} · {{ config.title }}
     {%- else -%}
-      {{ config.title }}
+      {{ config.title }} · {{ config.extra.tagline }}
     {%- endif -%}
   </title>
 
   {# ── Meta description ── #}
   <meta name="description" content="
-    {%- if page.description -%}
-      {{ page.description }}
-    {%- elif page.summary -%}
-      {{ page.summary | striptags | truncate(length=160) }}
-    {%- elif section.description -%}
-      {{ section.description }}
-    {%- else -%}
-      {{ config.description }}
+    {%- if page.description -%}{{ page.description }}
+    {%- elif page.summary -%}{{ page.summary | striptags | truncate(length=160) }}
+    {%- elif section.description -%}{{ section.description }}
+    {%- else -%}{{ config.description }}
     {%- endif -%}
   " />
 
@@ -46,75 +42,97 @@
   <meta property="og:type" content="{% if page %}article{% else %}website{% endif %}" />
   <meta property="og:url" content="{{ current_url | safe }}" />
 
-  {# ── Canonical ── #}
   <link rel="canonical" href="{{ current_url | safe }}" />
 
-  {# ── Atom feed ── #}
   <link rel="alternate" type="application/atom+xml" title="{{ config.title }} — Feed"
         href="{{ get_url(path='atom.xml') | safe }}" />
 
-  {# ── Favicon (place a favicon.ico in /static/) ── #}
   <link rel="icon" href="{{ get_url(path='favicon.ico') | safe }}" type="image/x-icon" />
 
   {# ── Google Fonts ── #}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Newsreader:ital,wght@1,300;1,400;1,500;0,400&display=swap"
         rel="stylesheet" />
 
-  {# ── Stylesheet ── #}
-  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="{{ get_url(path='style.css') | safe }}" />
 
-  {# ── Per-page extra head content ── #}
   {% block extra_head %}{% endblock %}
 </head>
 
 <body>
 
   {# ════════════════════════════════
+     HUD STATUS STRIP
+  ════════════════════════════════ #}
+  <div class="hud" aria-hidden="true">
+    <div class="container-wide hud__inner">
+      <div class="hud__left">
+        <span><span class="hud__dot"></span>&nbsp;&nbsp;ONLINE</span>
+        <span class="hud__sep">::</span>
+        <span><span class="hud__accent">NODE</span> <span class="hud__num">04</span></span>
+        <span class="hud__sep">::</span>
+        <span>VOID<span class="hud__sep">/</span>ROOT</span>
+      </div>
+      <div class="hud__right">
+        <span>LAT <span class="hud__num">40.7°N</span></span>
+        <span class="hud__sep">::</span>
+        <span>UPTIME <span class="hud__num">∞</span></span>
+        <span class="hud__sep">::</span>
+        <span><span class="hud__num" id="hud-clock">00:00:00</span> LOCAL</span>
+      </div>
+    </div>
+  </div>
+
+  {# ════════════════════════════════
      HEADER / NAV
   ════════════════════════════════ #}
   <header class="site-header">
-    <nav class="nav container">
+    <nav class="container-wide nav">
       <a href="{{ get_url(path='/') | safe }}" class="nav__brand" aria-label="Home">
         <span class="nav__brand-bracket">[</span><!--
         --><span class="nav__brand-text">0x04am</span><!--
         --><span class="nav__brand-bracket">]</span>
       </a>
 
-      <ul class="nav__links" role="list">
+      <ul class="nav__center" role="list">
         <li>
           <a href="{{ get_url(path='/') | safe }}"
              class="nav__link {% if current_path == '/' %}nav__link--active{% endif %}">
-            home
+            <span class="nav__link-num">01</span>home
           </a>
         </li>
         <li>
           <a href="{{ get_url(path='/blog/') | safe }}"
              class="nav__link {% if current_path is starting_with('/blog') %}nav__link--active{% endif %}">
-            blog
+            <span class="nav__link-num">02</span>blog
           </a>
         </li>
         <li>
           <a href="{{ get_url(path='/tags/') | safe }}"
              class="nav__link {% if current_path is starting_with('/tags') %}nav__link--active{% endif %}">
-            tags
+            <span class="nav__link-num">03</span>tags
           </a>
         </li>
         <li>
           <a href="{{ get_url(path='/about/') | safe }}"
              class="nav__link {% if current_path is starting_with('/about') %}nav__link--active{% endif %}">
-            about
+            <span class="nav__link-num">04</span>about
           </a>
         </li>
       </ul>
 
-      <div class="nav__feed">
-        <a href="{{ get_url(path='atom.xml') | safe }}"
-           class="nav__feed-link" title="Atom Feed" aria-label="Subscribe via Atom feed">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-               stroke-linejoin="round" aria-hidden="true">
+      <div class="nav__right">
+        <button type="button" class="nav__search-trigger" id="search-trigger" aria-label="Open search">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+          <span>search posts</span>
+          <kbd>⌘K</kbd>
+        </button>
+        <a href="{{ get_url(path='atom.xml') | safe }}" class="nav__icon-btn" title="Atom Feed" aria-label="Subscribe via Atom feed">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 11a9 9 0 0 1 9 9"/>
             <path d="M4 4a16 16 0 0 1 16 16"/>
             <circle cx="5" cy="19" r="1"/>
@@ -125,7 +143,7 @@
   </header>
 
   {# ════════════════════════════════
-     MAIN CONTENT
+     MAIN
   ════════════════════════════════ #}
   <main class="main" id="main-content">
     {% block content %}{% endblock %}
@@ -135,66 +153,111 @@
      FOOTER
   ════════════════════════════════ #}
   <footer class="site-footer">
-    <div class="container footer__inner">
-      <div class="footer__left">
-        <span class="footer__brand">0x04am</span>
-        <span class="footer__sep">//</span>
-        <span class="footer__tagline">{{ config.extra.tagline }}</span>
+    <div class="container-wide">
+      <div class="footer__ascii" aria-hidden="true">
+╭─────────────────────────────────────────────────────────────────╮
+│   0x04am ▸ end of feed ▸ scroll up for more ▸ stay caffeinated   │
+╰─────────────────────────────────────────────────────────────────╯
       </div>
 
-      <nav class="footer__social" aria-label="Social links">
-        {# GitHub #}
-        <a href="{{ config.extra.github | safe }}" class="footer__social-link"
-           target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-               fill="currentColor" aria-hidden="true">
-            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577
-                     0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7
-                     3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236
-                     1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93
-                     0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267
-                     1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24
-                     2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81
-                     2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297
-                     c0-6.627-5.373-12-12-12"/>
-          </svg>
-        </a>
+      {% set blog = get_section(path="blog/_index.md") %}
+      {% set tags = get_taxonomy(kind="tags") %}
 
-        {# Twitter / X #}
-        <a href="{{ config.extra.twitter | safe }}" class="footer__social-link"
-           target="_blank" rel="noopener noreferrer" aria-label="Twitter / X">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-               fill="currentColor" aria-hidden="true">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747
-                     l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-        </a>
+      <div class="footer__inner">
+        <div class="footer__col footer__brand-block">
+          <div class="footer__brand">
+            <span class="nav__brand-bracket">[</span>0x04am<span class="nav__brand-bracket">]</span>
+          </div>
+          <span class="footer__tagline">{{ config.extra.tagline }}</span>
+          <span class="footer__tagline dim">// {{ config.description }}</span>
+        </div>
 
-        {# YouTube #}
-        <a href="{{ config.extra.youtube | safe }}" class="footer__social-link"
-           target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-               fill="currentColor" aria-hidden="true">
-            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505
-                     0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016
-                     3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015
-                     3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432
-                     L15.818 12l-6.273 3.568z"/>
-          </svg>
-        </a>
-      </nav>
-    </div>
+        <div class="footer__col">
+          <span class="footer__col-title">NAVIGATE</span>
+          <a class="footer__link" href="{{ get_url(path='/') | safe }}">↳ home</a>
+          <a class="footer__link" href="{{ get_url(path='/blog/') | safe }}">↳ blog</a>
+          <a class="footer__link" href="{{ get_url(path='/tags/') | safe }}">↳ tags</a>
+          <a class="footer__link" href="{{ get_url(path='/about/') | safe }}">↳ about</a>
+        </div>
 
-    <div class="container footer__copy">
-      <span>
-        &copy; {{ now() | date(format="%Y") }} {{ config.extra.author }}
-        &nbsp;·&nbsp;
-        built with <a href="https://www.getzola.org" target="_blank" rel="noopener noreferrer">zola</a>
-        &nbsp;·&nbsp;
-        <a href="{{ get_url(path='atom.xml') | safe }}">feed</a>
-      </span>
+        <div class="footer__col">
+          <span class="footer__col-title">CONNECT</span>
+          <a class="footer__link" href="{{ config.extra.github | safe }}" target="_blank" rel="noopener noreferrer">↳ github</a>
+          <a class="footer__link" href="{{ config.extra.twitter | safe }}" target="_blank" rel="noopener noreferrer">↳ twitter</a>
+          <a class="footer__link" href="{{ config.extra.youtube | safe }}" target="_blank" rel="noopener noreferrer">↳ youtube</a>
+          <a class="footer__link" href="{{ get_url(path='atom.xml') | safe }}">↳ rss / atom</a>
+        </div>
+
+        <div class="footer__col">
+          <span class="footer__col-title">SYSTEM</span>
+          <span class="footer__link dim">posts: {{ blog.pages | length }}</span>
+          <span class="footer__link dim">tags: {{ tags.items | length }}</span>
+          <span class="footer__link dim">build: zola</span>
+          <span class="footer__link dim">caffeine: nominal</span>
+        </div>
+      </div>
+
+      <div class="footer__copy">
+        <span>
+          &copy; {{ now() | date(format="%Y") }} {{ config.extra.author }} ·
+          built between midnight and dawn with <a href="https://www.getzola.org" target="_blank" rel="noopener noreferrer">zola</a> ·
+          <a href="{{ get_url(path='atom.xml') | safe }}">feed</a>
+        </span>
+        <span>v1.0.4am</span>
+      </div>
     </div>
   </footer>
 
+  {# ════════════════════════════════
+     CMD-K SEARCH MODAL
+  ════════════════════════════════ #}
+  <div class="cmdk-overlay" id="cmdk-overlay" hidden role="dialog" aria-label="Search">
+    <div class="cmdk" id="cmdk">
+      <div class="cmdk__input-wrap">
+        <span class="cmdk__prompt">›</span>
+        <input type="text" class="cmdk__input" id="cmdk-input"
+               placeholder="search posts, tags, commands..."
+               spellcheck="false" autocomplete="off" />
+        <span class="cmdk__hint">ESC</span>
+      </div>
+      <div class="cmdk__results" id="cmdk-results"></div>
+      <div class="cmdk__footer">
+        <div class="cmdk__footer-keys">
+          <span><span class="cmdk__key">↑</span> <span class="cmdk__key">↓</span> navigate</span>
+          <span><span class="cmdk__key">↵</span> select</span>
+          <span><span class="cmdk__key">esc</span> close</span>
+        </div>
+        <span id="cmdk-count"></span>
+      </div>
+    </div>
+  </div>
+
+  {# ── Inline search corpus generated at build time ── #}
+  <script>
+    window.__POSTS = [
+      {% for page in blog.pages %}{
+        title: {{ page.title | json_encode | safe }},
+        url:   {{ page.permalink | json_encode | safe }},
+        date:  {{ page.date | date(format="%Y-%m-%d") | json_encode | safe }},
+        tags:  {{ page.taxonomies.tags | default(value=[]) | json_encode | safe }},
+        desc:  {{ page.description | default(value="") | json_encode | safe }}
+      }{% if not loop.last %},{% endif %}{% endfor %}
+    ];
+    window.__TAGS = [
+      {% for term in tags.items %}{
+        name:  {{ term.name | json_encode | safe }},
+        url:   {{ term.permalink | json_encode | safe }},
+        count: {{ term.pages | length }}
+      }{% if not loop.last %},{% endif %}{% endfor %}
+    ];
+    window.__URLS = {
+      home:  {{ get_url(path='/') | json_encode | safe }},
+      blog:  {{ get_url(path='/blog/') | json_encode | safe }},
+      tags:  {{ get_url(path='/tags/') | json_encode | safe }},
+      about: {{ get_url(path='/about/') | json_encode | safe }}
+    };
+  </script>
+
+  <script src="{{ get_url(path='app.js') | safe }}" defer></script>
 </body>
 </html>

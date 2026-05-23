@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
+<div class="container-wide">
   <article class="about-page">
 
     <header class="page-header">
-      <div class="page-header__eyebrow" aria-hidden="true">// about</div>
-      <h1 class="page-header__title">{{ page.title }}</h1>
+      <div class="page-header__eyebrow">// identity · 04_about</div>
+      <h1 class="page-header__title">{{ page.title | lower }}</h1>
     </header>
 
     {# ── Terminal status block ── #}
@@ -15,7 +15,7 @@
         <span class="terminal-block__dot terminal-block__dot--red"></span>
         <span class="terminal-block__dot terminal-block__dot--yellow"></span>
         <span class="terminal-block__dot terminal-block__dot--green"></span>
-        <span class="terminal-block__title">whoami</span>
+        <span class="terminal-block__title">~/identity.sh — 0x04am@void</span>
       </div>
       <div class="terminal-block__body">
         <p><span class="term-prompt">$</span> whoami</p>
@@ -23,13 +23,41 @@
         <p><span class="term-prompt">$</span> uname -a</p>
         <p class="term-output">Linux void 6.x.x #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux</p>
         <p><span class="term-prompt">$</span> uptime</p>
-        <p class="term-output">running since sometime around midnight &nbsp;<span class="prompt__cursor"></span></p>
+        <p class="term-output">running since sometime around midnight</p>
+        <p><span class="term-prompt">$</span> cat purpose.txt</p>
+        <p class="term-output">build → break → write → repeat</p>
+        <p><span class="term-prompt">$</span> <span class="term-comment"># cursor below is real, the rest is theater</span></p>
+        <p><span class="term-prompt">$</span> <span class="prompt__cursor"></span></p>
       </div>
     </div>
 
-    {# ── Content ── #}
-    <div class="post__body prose">
-      {{ page.content | safe }}
+    <div class="about-grid">
+      <div class="post__body prose" style="padding: 0.5rem 0 0;">
+        {{ page.content | safe }}
+      </div>
+
+      <aside>
+        <div class="about-stack">
+          <div class="about-stack__title">▮ CURRENT STACK</div>
+          <ul class="about-stack__list">
+            <li class="about-stack__item"><span class="about-stack__label">editor</span><span class="about-stack__value">neovim</span></li>
+            <li class="about-stack__item"><span class="about-stack__label">shell</span><span class="about-stack__value">zsh + tmux</span></li>
+            <li class="about-stack__item"><span class="about-stack__label">languages</span><span class="about-stack__value">rust · go · ts</span></li>
+            <li class="about-stack__item"><span class="about-stack__label">os</span><span class="about-stack__value">arch / macos</span></li>
+            <li class="about-stack__item"><span class="about-stack__label">font</span><span class="about-stack__value">jetbrains mono</span></li>
+            <li class="about-stack__item"><span class="about-stack__label">caffeine</span><span class="about-stack__value">v60 · espresso</span></li>
+          </ul>
+        </div>
+
+        <div class="about-stack">
+          <div class="about-stack__title">▮ NOW LISTENING</div>
+          <ul class="about-stack__list">
+            <li class="about-stack__item"><span class="about-stack__label">genre</span><span class="about-stack__value">ambient · idm</span></li>
+            <li class="about-stack__item"><span class="about-stack__label">mood</span><span class="about-stack__value">3am loops</span></li>
+            <li class="about-stack__item"><span class="about-stack__label">bpm</span><span class="about-stack__value">60-90</span></li>
+          </ul>
+        </div>
+      </aside>
     </div>
 
   </article>

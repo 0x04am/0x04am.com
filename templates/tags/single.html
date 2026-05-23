@@ -1,74 +1,45 @@
 {% extends "base.html" %}
+{% import "macros.html" as m %}
 
 {% block content %}
-<div class="container">
+{% set tags = get_taxonomy(kind="tags") %}
+
+<div class="container-wide">
 
   <header class="page-header">
-    <div class="page-header__eyebrow" aria-hidden="true">// tags</div>
-    <h1 class="page-header__title">
-      #{{ term.name }}
-    </h1>
+    <div class="page-header__eyebrow">// taxonomy · 03_tags</div>
+    <h1 class="page-header__title">#{{ term.name }}</h1>
     <p class="page-header__desc">
       {{ term.pages | length }} post{% if term.pages | length != 1 %}s{% endif %} tagged
-      <strong class="accent">{{ term.name }}</strong>
+      <strong class="accent">{{ term.name }}</strong>.
     </p>
   </header>
 
+  {# ── Tag filter chips (same as /blog) ── #}
+  <div class="tag-filter-bar">
+    <span class="tag-filter-bar__label">filter:</span>
+    <a class="tag-filter" href="{{ get_url(path='/blog/') | safe }}">
+      {% set blog_section = get_section(path='blog/_index.md') %}
+      all <span class="tag-filter__count">{{ blog_section.pages | length }}</span>
+    </a>
+    {% for t in tags.items | sort(attribute="name") %}
+    <a class="tag-filter {% if t.name == term.name %}tag-filter--active{% endif %}" href="{{ t.permalink | safe }}">
+      #{{ t.name }} <span class="tag-filter__count">{{ t.pages | length }}</span>
+    </a>
+    {% endfor %}
+  </div>
+
   {% if term.pages %}
-    <ol class="post-list post-list--full" reversed role="list">
+    <ol class="post-list" reversed role="list">
       {% for page in term.pages %}
-      <li class="post-list__item">
-        <article class="post-card post-card--list">
-
-          <div class="post-card__meta">
-            <time class="post-card__date" datetime="{{ page.date | date(format='%Y-%m-%d') }}">
-              {{ page.date | date(format="%Y-%m-%d") }}
-            </time>
-            {% if page.reading_time %}
-            <span class="post-card__reading-time">{{ page.reading_time }} min read</span>
-            {% endif %}
-            {% if page.taxonomies.tags %}
-            <div class="post-card__tags">
-              {% for tag in page.taxonomies.tags %}
-              <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}"
-                 class="tag {% if tag == term.name %}tag--active{% endif %}">{{ tag }}</a>
-              {% endfor %}
-            </div>
-            {% endif %}
-          </div>
-
-          <h2 class="post-card__title">
-            <a href="{{ page.permalink | safe }}" class="post-card__link">
-              {{ page.title }}
-            </a>
-          </h2>
-
-          {% if page.description %}
-          <p class="post-card__summary">{{ page.description }}</p>
-          {% elif page.summary %}
-          <p class="post-card__summary">{{ page.summary | striptags | truncate(length=240) }}</p>
-          {% endif %}
-
-          <a href="{{ page.permalink | safe }}" class="post-card__read-more">
-            read more <span aria-hidden="true">→</span>
-          </a>
-        </article>
-      </li>
+        {{ m::post_card(page=page, index=term.pages | length - loop.index0) }}
       {% endfor %}
     </ol>
   {% else %}
     <div class="empty-state">
-      <p class="empty-state__text">
-        <span aria-hidden="true">// </span>no posts with this tag yet.
-      </p>
+      <span aria-hidden="true">// </span>no posts with this tag yet.
     </div>
   {% endif %}
-
-  <div class="page-footer-nav">
-    <a href="{{ get_url(path='/tags/') | safe }}" class="btn btn--ghost">
-      <span aria-hidden="true">←</span> all tags
-    </a>
-  </div>
 
 </div>
 {% endblock %}

@@ -1,33 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
+<div class="container-wide">
 
   <header class="page-header">
-    <div class="page-header__eyebrow" aria-hidden="true">// taxonomy</div>
-    <h1 class="page-header__title">All Tags</h1>
+    <div class="page-header__eyebrow">// taxonomy · 03_tags</div>
+    <h1 class="page-header__title">Tags</h1>
     <p class="page-header__desc">
-      {{ terms | length }} tag{% if terms | length != 1 %}s{% endif %} total.
+      {{ terms | length }} tag{% if terms | length != 1 %}s{% endif %} across the archive.
     </p>
   </header>
 
   {% if terms %}
     <div class="tag-cloud" role="list">
       {% for term in terms | sort(attribute="name") %}
-        <a href="{{ term.permalink | safe }}"
-           class="tag-cloud__item"
-           role="listitem"
-           style="--count: {{ term.pages | length }}">
-          <span class="tag-cloud__name">#{{ term.name }}</span>
-          <span class="tag-cloud__count">{{ term.pages | length }}</span>
+        <a href="{{ term.permalink | safe }}" class="tag-cloud__item" role="listitem">
+          <span>#{{ term.name }}</span>
+          <span class="tag-cloud__count">{% if term.pages | length < 10 %}0{% endif %}{{ term.pages | length }}</span>
         </a>
       {% endfor %}
     </div>
   {% else %}
     <div class="empty-state">
-      <p class="empty-state__text">
-        <span aria-hidden="true">// </span>no tags yet.
-      </p>
+      <span aria-hidden="true">// </span>no tags yet.
     </div>
   {% endif %}
 

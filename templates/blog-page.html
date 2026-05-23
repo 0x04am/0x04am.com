@@ -1,7 +1,7 @@
 {% extends "base.html" %}
+{% import "macros.html" as m %}
 
 {% block extra_head %}
-  {# Article-specific OG tags #}
   <meta property="article:published_time" content="{{ page.date | date(format='%+') }}" />
   {% if page.taxonomies.tags %}
   {% for tag in page.taxonomies.tags %}
@@ -11,107 +11,121 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+{% set blog = get_section(path="blog/_index.md") %}
+{% set total = blog.pages | length %}
+{# Find this page's index in the blog list (1-based). #}
+{% set this_idx = 0 %}
+{% for p in blog.pages %}
+  {% if p.permalink == page.permalink %}
+    {% set_global this_idx = loop.index %}
+  {% endif %}
+{% endfor %}
 
-    {# ── Post header ── #}
+<div class="post-view">
+
+  <article class="post-view__main" itemscope itemtype="https://schema.org/BlogPosting">
+
     <header class="post__header">
-      <div class="post__eyebrow" aria-hidden="true">// post</div>
+      <div class="post__eyebrow">
+        <span class="post__eyebrow-tick">▮</span>
+        post {{ m::pad(n=this_idx) }} / {{ m::pad(n=total) }}
+      </div>
 
       <h1 class="post__title" itemprop="headline">{{ page.title }}</h1>
-
-      <div class="post__meta">
-        <time class="post__date" datetime="{{ page.date | date(format='%Y-%m-%d') }}"
-              itemprop="datePublished">
-          {{ page.date | date(format="%B %d, %Y") }}
-        </time>
-
-        {% if page.extra.updated %}
-        <span class="post__sep" aria-hidden="true">·</span>
-        <span class="post__updated">
-          updated {{ page.extra.updated | date(format="%B %d, %Y") }}
-        </span>
-        {% endif %}
-
-        {% if page.reading_time %}
-        <span class="post__sep" aria-hidden="true">·</span>
-        <span class="post__reading-time" itemprop="timeRequired">
-          {{ page.reading_time }} min read
-        </span>
-        {% endif %}
-
-        {% if page.taxonomies.tags %}
-        <span class="post__sep" aria-hidden="true">·</span>
-        <div class="post__tags" itemprop="keywords">
-          {% for tag in page.taxonomies.tags %}
-          <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}"
-             class="tag">{{ tag }}</a>
-          {% endfor %}
-        </div>
-        {% endif %}
-      </div>
 
       {% if page.description %}
       <p class="post__description">{{ page.description }}</p>
       {% endif %}
+
+      <div class="post__meta">
+        <time class="post__meta-date" datetime="{{ page.date | date(format='%Y-%m-%d') }}" itemprop="datePublished">
+          {{ page.date | date(format="%B %d, %Y") }}
+        </time>
+
+        {% if page.extra.updated %}
+        <span class="post__meta-sep" aria-hidden="true">·</span>
+        <span>updated {{ page.extra.updated | date(format="%B %d, %Y") }}</span>
+        {% endif %}
+
+        {% if page.reading_time %}
+        <span class="post__meta-sep" aria-hidden="true">·</span>
+        <span itemprop="timeRequired">{{ page.reading_time }} min read</span>
+        {% endif %}
+
+        {% if page.taxonomies.tags %}
+        <span class="post__meta-sep" aria-hidden="true">·</span>
+        <div class="post__meta-tags" itemprop="keywords">
+          {% for tag in page.taxonomies.tags %}
+          <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}" class="tag">{{ tag }}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
     </header>
 
-    {# ── Separator ── #}
     <hr class="post__rule" />
 
-    {# ── Post body ── #}
     <div class="post__body prose" itemprop="articleBody">
       {{ page.content | safe }}
     </div>
 
-    {# ── Post footer ── #}
     <footer class="post__footer">
-      <hr class="post__rule" />
-
-      <div class="post__footer-inner">
-        <div class="post__tags-footer">
-          {% if page.taxonomies.tags %}
-          <span class="post__tags-label">tagged:</span>
-          {% for tag in page.taxonomies.tags %}
-          <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}"
-             class="tag tag--footer">{{ tag }}</a>
-          {% endfor %}
-          {% endif %}
-        </div>
-
-        <a href="{{ get_url(path='/blog/') | safe }}" class="post__back-link">
-          <span aria-hidden="true">←</span> back to blog
-        </a>
+      <div class="post__tags-footer">
+        {% if page.taxonomies.tags %}
+        <span class="post__tags-label">tagged</span>
+        {% for tag in page.taxonomies.tags %}
+        <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}" class="tag">{{ tag }}</a>
+        {% endfor %}
+        {% endif %}
       </div>
+
+      <a href="{{ get_url(path='/blog/') | safe }}" class="post__back-link">
+        <span aria-hidden="true">←</span> back to archive
+      </a>
     </footer>
 
+    {% if page.earlier or page.later %}
+    <nav class="post-nav" aria-label="Post navigation">
+      <div class="post-nav__inner">
+        {% if page.later %}
+        <a class="post-nav__item" href="{{ page.later.permalink | safe }}">
+          <span class="post-nav__label" aria-hidden="true">← newer</span>
+          <span class="post-nav__link">{{ page.later.title }}</span>
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+
+        {% if page.earlier %}
+        <a class="post-nav__item post-nav__item--next" href="{{ page.earlier.permalink | safe }}">
+          <span class="post-nav__label" aria-hidden="true">older →</span>
+          <span class="post-nav__link">{{ page.earlier.title }}</span>
+        </a>
+        {% else %}
+        <div></div>
+        {% endif %}
+      </div>
+    </nav>
+    {% endif %}
   </article>
 
-  {# ── Prev / Next navigation ── #}
-  {% if page.earlier or page.later %}
-  <nav class="post-nav" aria-label="Post navigation">
-    <div class="post-nav__inner">
-      {% if page.later %}
-      <div class="post-nav__item post-nav__item--prev">
-        <span class="post-nav__label" aria-hidden="true">← prev</span>
-        <a href="{{ page.later.permalink | safe }}" class="post-nav__link">
-          {{ page.later.title }}
-        </a>
-      </div>
-      {% else %}
-      <div class="post-nav__item"></div>
-      {% endif %}
-
-      {% if page.earlier %}
-      <div class="post-nav__item post-nav__item--next">
-        <span class="post-nav__label" aria-hidden="true">next →</span>
-        <a href="{{ page.earlier.permalink | safe }}" class="post-nav__link">
-          {{ page.earlier.title }}
-        </a>
-      </div>
-      {% endif %}
-    </div>
-  </nav>
+  {# ── TOC sidebar (auto-built from page.toc) ── #}
+  {% if page.toc and page.toc | length > 0 %}
+  <aside class="post-view__aside">
+    <div class="toc__title">▮ ON THIS PAGE</div>
+    <ul class="toc__list">
+      {% for h in page.toc %}
+      <li>
+        <a href="#{{ h.id }}" class="toc__link" data-toc-link>{{ h.title }}</a>
+        {% if h.children %}
+          {% for h2 in h.children %}
+          <a href="#{{ h2.id }}" class="toc__link toc__link--h3" data-toc-link>{{ h2.title }}</a>
+          {% endfor %}
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
   {% endif %}
 
 </div>
