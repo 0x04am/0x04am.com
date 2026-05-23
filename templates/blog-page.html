@@ -79,7 +79,7 @@
         {% endif %}
       </div>
 
-      <a href="{{ get_url(path='/blog/') | safe }}" class="post__back-link">
+      <a href="/blog/" class="post__back-link">
         <span aria-hidden="true">←</span> back to archive
       </a>
     </footer>
@@ -88,7 +88,7 @@
     <nav class="post-nav" aria-label="Post navigation">
       <div class="post-nav__inner">
         {% if page.later %}
-        <a class="post-nav__item" href="{{ page.later.permalink | safe }}">
+        <a class="post-nav__item" href="{{ page.later.path | safe }}">
           <span class="post-nav__label" aria-hidden="true">← newer</span>
           <span class="post-nav__link">{{ page.later.title }}</span>
         </a>
@@ -97,7 +97,7 @@
         {% endif %}
 
         {% if page.earlier %}
-        <a class="post-nav__item post-nav__item--next" href="{{ page.earlier.permalink | safe }}">
+        <a class="post-nav__item post-nav__item--next" href="{{ page.earlier.path | safe }}">
           <span class="post-nav__label" aria-hidden="true">older →</span>
           <span class="post-nav__link">{{ page.earlier.title }}</span>
         </a>

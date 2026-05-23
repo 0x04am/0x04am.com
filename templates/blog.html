@@ -18,11 +18,11 @@
   {# ── Tag filter chips ── #}
   <div class="tag-filter-bar">
     <span class="tag-filter-bar__label">filter:</span>
-    <a class="tag-filter tag-filter--active" href="{{ get_url(path='/blog/') | safe }}">
+    <a class="tag-filter tag-filter--active" href="/blog/">
       all <span class="tag-filter__count">{{ section.pages | length }}</span>
     </a>
     {% for term in tags.items | sort(attribute="name") %}
-    <a class="tag-filter" href="{{ term.permalink | safe }}">
+    <a class="tag-filter" href="{{ term.path | safe }}">
       #{{ term.name }} <span class="tag-filter__count">{{ term.pages | length }}</span>
     </a>
     {% endfor %}

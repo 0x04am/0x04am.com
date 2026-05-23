@@ -25,7 +25,7 @@
 {# Single post card — used by index, blog, and tag pages #}
 {% macro post_card(page, index) -%}
   <li class="post-list__item">
-    <a href="{{ page.permalink | safe }}" style="display:block;color:inherit;">
+    <a href="{{ page.path | safe }}" style="display:block;color:inherit;">
       <article class="post-card">
         <div class="post-card__index">{{ self::pad(n=index) }}</div>
 

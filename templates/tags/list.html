@@ -14,7 +14,7 @@
   {% if terms %}
     <div class="tag-cloud" role="list">
       {% for term in terms | sort(attribute="name") %}
-        <a href="{{ term.permalink | safe }}" class="tag-cloud__item" role="listitem">
+        <a href="{{ term.path | safe }}" class="tag-cloud__item" role="listitem">
           <span>#{{ term.name }}</span>
           <span class="tag-cloud__count">{% if term.pages | length < 10 %}0{% endif %}{{ term.pages | length }}</span>
         </a>

@@ -18,12 +18,12 @@
   {# ── Tag filter chips (same as /blog) ── #}
   <div class="tag-filter-bar">
     <span class="tag-filter-bar__label">filter:</span>
-    <a class="tag-filter" href="{{ get_url(path='/blog/') | safe }}">
+    <a class="tag-filter" href="/blog/">
       {% set blog_section = get_section(path='blog/_index.md') %}
       all <span class="tag-filter__count">{{ blog_section.pages | length }}</span>
     </a>
     {% for t in tags.items | sort(attribute="name") %}
-    <a class="tag-filter {% if t.name == term.name %}tag-filter--active{% endif %}" href="{{ t.permalink | safe }}">
+    <a class="tag-filter {% if t.name == term.name %}tag-filter--active{% endif %}" href="{{ t.path | safe }}">
       #{{ t.name }} <span class="tag-filter__count">{{ t.pages | length }}</span>
     </a>
     {% endfor %}

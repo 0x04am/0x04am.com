@@ -47,10 +47,10 @@
     </div>
 
     <div class="hero__actions">
-      <a href="{{ get_url(path='/blog/') | safe }}" class="btn btn--primary">
+      <a href="/blog/" class="btn btn--primary">
         read the blog <span aria-hidden="true">→</span>
       </a>
-      <a href="{{ get_url(path='/about/') | safe }}" class="btn btn--ghost">
+      <a href="/about/" class="btn btn--ghost">
         whoami
       </a>
     </div>
@@ -90,7 +90,7 @@
 
     {% if blog.pages | length > 5 %}
     <div style="text-align:center; padding: 2rem 0 1rem;">
-      <a href="{{ get_url(path='/blog/') | safe }}" class="btn btn--ghost">
+      <a href="/blog/" class="btn btn--ghost">
         ↳ all transmissions ({{ blog.pages | length }})
       </a>
     </div>

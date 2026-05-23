@@ -45,9 +45,9 @@
   <link rel="canonical" href="{{ current_url | safe }}" />
 
   <link rel="alternate" type="application/atom+xml" title="{{ config.title }} — Feed"
-        href="{{ get_url(path='atom.xml') | safe }}" />
+        href="/atom.xml" />
 
-  <link rel="icon" href="{{ get_url(path='favicon.ico') | safe }}" type="image/x-icon" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
   {# ── Google Fonts ── #}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -89,7 +89,7 @@
   ════════════════════════════════ #}
   <header class="site-header">
     <nav class="container-wide nav">
-      <a href="{{ get_url(path='/') | safe }}" class="nav__brand" aria-label="Home">
+      <a href="/" class="nav__brand" aria-label="Home">
         <span class="nav__brand-bracket">[</span><!--
         --><span class="nav__brand-text">0x04am</span><!--
         --><span class="nav__brand-bracket">]</span>
@@ -97,25 +97,25 @@
 
       <ul class="nav__center" role="list">
         <li>
-          <a href="{{ get_url(path='/') | safe }}"
+          <a href="/"
              class="nav__link {% if current_path == '/' %}nav__link--active{% endif %}">
             <span class="nav__link-num">01</span>home
           </a>
         </li>
         <li>
-          <a href="{{ get_url(path='/blog/') | safe }}"
+          <a href="/blog/"
              class="nav__link {% if current_path is starting_with('/blog') %}nav__link--active{% endif %}">
             <span class="nav__link-num">02</span>blog
           </a>
         </li>
         <li>
-          <a href="{{ get_url(path='/tags/') | safe }}"
+          <a href="/tags/"
              class="nav__link {% if current_path is starting_with('/tags') %}nav__link--active{% endif %}">
             <span class="nav__link-num">03</span>tags
           </a>
         </li>
         <li>
-          <a href="{{ get_url(path='/about/') | safe }}"
+          <a href="/about/"
              class="nav__link {% if current_path is starting_with('/about') %}nav__link--active{% endif %}">
             <span class="nav__link-num">04</span>about
           </a>
@@ -131,7 +131,7 @@
           <span>search posts</span>
           <kbd>⌘K</kbd>
         </button>
-        <a href="{{ get_url(path='atom.xml') | safe }}" class="nav__icon-btn" title="Atom Feed" aria-label="Subscribe via Atom feed">
+        <a href="/atom.xml" class="nav__icon-btn" title="Atom Feed" aria-label="Subscribe via Atom feed">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 11a9 9 0 0 1 9 9"/>
             <path d="M4 4a16 16 0 0 1 16 16"/>
@@ -169,10 +169,10 @@
 
         <div class="footer__col">
           <span class="footer__col-title">NAVIGATE</span>
-          <a class="footer__link" href="{{ get_url(path='/') | safe }}">↳ home</a>
-          <a class="footer__link" href="{{ get_url(path='/blog/') | safe }}">↳ blog</a>
-          <a class="footer__link" href="{{ get_url(path='/tags/') | safe }}">↳ tags</a>
-          <a class="footer__link" href="{{ get_url(path='/about/') | safe }}">↳ about</a>
+          <a class="footer__link" href="/">↳ home</a>
+          <a class="footer__link" href="/blog/">↳ blog</a>
+          <a class="footer__link" href="/tags/">↳ tags</a>
+          <a class="footer__link" href="/about/">↳ about</a>
         </div>
 
         <div class="footer__col">
@@ -180,7 +180,7 @@
           <a class="footer__link" href="{{ config.extra.github | safe }}" target="_blank" rel="noopener noreferrer">↳ github</a>
           <a class="footer__link" href="{{ config.extra.twitter | safe }}" target="_blank" rel="noopener noreferrer">↳ twitter</a>
           <a class="footer__link" href="{{ config.extra.youtube | safe }}" target="_blank" rel="noopener noreferrer">↳ youtube</a>
-          <a class="footer__link" href="{{ get_url(path='atom.xml') | safe }}">↳ rss / atom</a>
+          <a class="footer__link" href="/atom.xml">↳ rss / atom</a>
         </div>
 
         <div class="footer__col">
@@ -196,7 +196,7 @@
         <span>
           &copy; {{ now() | date(format="%Y") }} {{ config.extra.author }} ·
           built between midnight and dawn with <a href="https://www.getzola.org" target="_blank" rel="noopener noreferrer">zola</a> ·
-          <a href="{{ get_url(path='atom.xml') | safe }}">feed</a>
+          <a href="/atom.xml">feed</a>
         </span>
         <span>v1.0.4am</span>
       </div>
@@ -232,7 +232,7 @@
     window.__POSTS = [
       {% for page in blog.pages %}{
         title: {{ page.title | json_encode | safe }},
-        url:   {{ page.permalink | json_encode | safe }},
+        url:   {{ page.path | json_encode | safe }},
         date:  {{ page.date | date(format="%Y-%m-%d") | json_encode | safe }},
         tags:  {{ page.taxonomies.tags | default(value=[]) | json_encode | safe }},
         desc:  {{ page.description | default(value="") | json_encode | safe }}
@@ -241,18 +241,18 @@
     window.__TAGS = [
       {% for term in tags.items %}{
         name:  {{ term.name | json_encode | safe }},
-        url:   {{ term.permalink | json_encode | safe }},
+        url:   {{ term.path | json_encode | safe }},
         count: {{ term.pages | length }}
       }{% if not loop.last %},{% endif %}{% endfor %}
     ];
     window.__URLS = {
-      home:  {{ get_url(path='/') | json_encode | safe }},
-      blog:  {{ get_url(path='/blog/') | json_encode | safe }},
-      tags:  {{ get_url(path='/tags/') | json_encode | safe }},
-      about: {{ get_url(path='/about/') | json_encode | safe }}
+      home:  "/",
+      blog:  "/blog/",
+      tags:  "/tags/",
+      about: "/about/"
     };
   </script>
 
-  <script src="{{ get_url(path='app.js') | safe }}" defer></script>
+  <script src="/app.js" defer></script>
 </body>
 </html>
