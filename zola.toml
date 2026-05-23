@@ -1,5 +1,5 @@
 base_url = "https://0x04am.com"
-title = "0x04am"
+title = "4 AM"
 description = "AI agents, systems code, and late-night experiments."
 compile_sass = true
 build_search_index = true
