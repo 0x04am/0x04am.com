@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero container">
+  {# ── Terminal prompt decoration ── #}
+  <div class="hero__prompt" aria-hidden="true">
+    <span class="prompt__user">root</span><!--
+    --><span class="prompt__at">@</span><!--
+    --><span class="prompt__host">void</span><!--
+    --><span class="prompt__sep">:</span><!--
+    --><span class="prompt__path">~</span><!--
+    --><span class="prompt__dollar">$</span>
+    <span class="prompt__cursor"></span>
+  </div>
+
+  {# ── Main heading ── #}
+  <h1 class="hero__title">
+    <span class="hero__title-hex" aria-hidden="true">0x</span><!--
+    --><span class="hero__title-main">04am</span>
+  </h1>
+
+  <p class="hero__tagline">{{ config.extra.tagline }}</p>
+
+  <div class="hero__desc">
+    <p>
+      AI agents · systems code · late-night experiments.<br />
+      Everything written between midnight and dawn.
+    </p>
+  </div>
+
+  <div class="hero__actions">
+    <a href="{{ get_url(path='/blog/') | safe }}" class="btn btn--primary">
+      read the blog
+    </a>
+    <a href="{{ get_url(path='/about/') | safe }}" class="btn btn--ghost">
+      about me
+    </a>
+  </div>
+</section>
+
+{# ── Divider ── #}
+<div class="section-divider container" aria-hidden="true">
+  <span class="divider__line"></span>
+  <span class="divider__label">recent posts</span>
+  <span class="divider__line"></span>
+</div>
+
+{# ── Recent posts ── #}
+<section class="recent-posts container">
+  {% set blog = get_section(path="blog/_index.md") %}
+  {% set recent = blog.pages | slice(end=5) %}
+
+  {% if recent %}
+    <ol class="post-list" reversed role="list">
+      {% for page in recent %}
+      <li class="post-list__item">
+        <article class="post-card">
+          <div class="post-card__meta">
+            <time class="post-card__date" datetime="{{ page.date | date(format='%Y-%m-%d') }}">
+              {{ page.date | date(format="%Y-%m-%d") }}
+            </time>
+            {% if page.taxonomies.tags %}
+            <div class="post-card__tags">
+              {% for tag in page.taxonomies.tags %}
+              <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}"
+                 class="tag">{{ tag }}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <h2 class="post-card__title">
+            <a href="{{ page.permalink | safe }}" class="post-card__link">
+              {{ page.title }}
+            </a>
+          </h2>
+
+          {% if page.description %}
+          <p class="post-card__summary">{{ page.description }}</p>
+          {% elif page.summary %}
+          <p class="post-card__summary">{{ page.summary | striptags | truncate(length=200) }}</p>
+          {% endif %}
+
+          <a href="{{ page.permalink | safe }}" class="post-card__read-more">
+            read more <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      </li>
+      {% endfor %}
+    </ol>
+
+    {% if blog.pages | length > 5 %}
+    <div class="recent-posts__more">
+      <a href="{{ get_url(path='/blog/') | safe }}" class="btn btn--ghost">
+        all posts ({{ blog.pages | length }})
+      </a>
+    </div>
+    {% endif %}
+
+  {% else %}
+    <div class="empty-state">
+      <p class="empty-state__text">
+        <span aria-hidden="true">// </span>no posts yet. check back at 4am.
+      </p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

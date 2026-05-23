@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+  {# ── Page header ── #}
+  <header class="page-header">
+    <div class="page-header__eyebrow" aria-hidden="true">// blog</div>
+    <h1 class="page-header__title">All Posts</h1>
+    {% if section.description %}
+    <p class="page-header__desc">{{ section.description }}</p>
+    {% endif %}
+  </header>
+
+  {# ── Post list ── #}
+  {% if paginator %}
+    {% set pages = paginator.pages %}
+  {% else %}
+    {% set pages = section.pages %}
+  {% endif %}
+
+  {% if pages %}
+    <ol class="post-list post-list--full" reversed role="list">
+      {% for page in pages %}
+      <li class="post-list__item">
+        <article class="post-card post-card--list">
+
+          <div class="post-card__meta">
+            <time class="post-card__date" datetime="{{ page.date | date(format='%Y-%m-%d') }}">
+              {{ page.date | date(format="%Y-%m-%d") }}
+            </time>
+            {% if page.extra.reading_time %}
+            <span class="post-card__reading-time">{{ page.extra.reading_time }} min read</span>
+            {% endif %}
+            {% if page.taxonomies.tags %}
+            <div class="post-card__tags">
+              {% for tag in page.taxonomies.tags %}
+              <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}"
+                 class="tag">{{ tag }}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <h2 class="post-card__title">
+            <a href="{{ page.permalink | safe }}" class="post-card__link">
+              {{ page.title }}
+            </a>
+          </h2>
+
+          {% if page.description %}
+          <p class="post-card__summary">{{ page.description }}</p>
+          {% elif page.summary %}
+          <p class="post-card__summary">{{ page.summary | striptags | truncate(length=240) }}</p>
+          {% endif %}
+
+          <a href="{{ page.permalink | safe }}" class="post-card__read-more">
+            read more <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      </li>
+      {% endfor %}
+    </ol>
+
+    {# ── Pagination ── #}
+    {% if paginator %}
+    <nav class="pagination" aria-label="Blog pagination">
+      {% if paginator.previous %}
+      <a href="{{ paginator.previous | safe }}" class="pagination__link pagination__link--prev">
+        <span aria-hidden="true">←</span> newer
+      </a>
+      {% else %}
+      <span class="pagination__link pagination__link--disabled" aria-disabled="true">
+        <span aria-hidden="true">←</span> newer
+      </span>
+      {% endif %}
+
+      <span class="pagination__info">
+        page {{ paginator.current_index }} of {{ paginator.number_pagers }}
+      </span>
+
+      {% if paginator.next %}
+      <a href="{{ paginator.next | safe }}" class="pagination__link pagination__link--next">
+        older <span aria-hidden="true">→</span>
+      </a>
+      {% else %}
+      <span class="pagination__link pagination__link--disabled" aria-disabled="true">
+        older <span aria-hidden="true">→</span>
+      </span>
+      {% endif %}
+    </nav>
+    {% endif %}
+
+  {% else %}
+    <div class="empty-state">
+      <p class="empty-state__text">
+        <span aria-hidden="true">// </span>no posts yet. check back at 4am.
+      </p>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

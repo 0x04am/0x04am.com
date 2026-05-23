@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+  <header class="page-header">
+    <div class="page-header__eyebrow" aria-hidden="true">// tags</div>
+    <h1 class="page-header__title">
+      #{{ term.name }}
+    </h1>
+    <p class="page-header__desc">
+      {{ term.pages | length }} post{% if term.pages | length != 1 %}s{% endif %} tagged
+      <strong class="accent">{{ term.name }}</strong>
+    </p>
+  </header>
+
+  {% if term.pages %}
+    <ol class="post-list post-list--full" reversed role="list">
+      {% for page in term.pages %}
+      <li class="post-list__item">
+        <article class="post-card post-card--list">
+
+          <div class="post-card__meta">
+            <time class="post-card__date" datetime="{{ page.date | date(format='%Y-%m-%d') }}">
+              {{ page.date | date(format="%Y-%m-%d") }}
+            </time>
+            {% if page.reading_time %}
+            <span class="post-card__reading-time">{{ page.reading_time }} min read</span>
+            {% endif %}
+            {% if page.taxonomies.tags %}
+            <div class="post-card__tags">
+              {% for tag in page.taxonomies.tags %}
+              <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}"
+                 class="tag {% if tag == term.name %}tag--active{% endif %}">{{ tag }}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <h2 class="post-card__title">
+            <a href="{{ page.permalink | safe }}" class="post-card__link">
+              {{ page.title }}
+            </a>
+          </h2>
+
+          {% if page.description %}
+          <p class="post-card__summary">{{ page.description }}</p>
+          {% elif page.summary %}
+          <p class="post-card__summary">{{ page.summary | striptags | truncate(length=240) }}</p>
+          {% endif %}
+
+          <a href="{{ page.permalink | safe }}" class="post-card__read-more">
+            read more <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <div class="empty-state">
+      <p class="empty-state__text">
+        <span aria-hidden="true">// </span>no posts with this tag yet.
+      </p>
+    </div>
+  {% endif %}
+
+  <div class="page-footer-nav">
+    <a href="{{ get_url(path='/tags/') | safe }}" class="btn btn--ghost">
+      <span aria-hidden="true">←</span> all tags
+    </a>
+  </div>
+
+</div>
+{% endblock %}

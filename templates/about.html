@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <article class="about-page">
+
+    <header class="page-header">
+      <div class="page-header__eyebrow" aria-hidden="true">// about</div>
+      <h1 class="page-header__title">{{ page.title }}</h1>
+    </header>
+
+    {# ── Terminal status block ── #}
+    <div class="terminal-block" aria-hidden="true">
+      <div class="terminal-block__bar">
+        <span class="terminal-block__dot terminal-block__dot--red"></span>
+        <span class="terminal-block__dot terminal-block__dot--yellow"></span>
+        <span class="terminal-block__dot terminal-block__dot--green"></span>
+        <span class="terminal-block__title">whoami</span>
+      </div>
+      <div class="terminal-block__body">
+        <p><span class="term-prompt">$</span> whoami</p>
+        <p class="term-output">0x04am</p>
+        <p><span class="term-prompt">$</span> uname -a</p>
+        <p class="term-output">Linux void 6.x.x #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux</p>
+        <p><span class="term-prompt">$</span> uptime</p>
+        <p class="term-output">running since sometime around midnight &nbsp;<span class="prompt__cursor"></span></p>
+      </div>
+    </div>
+
+    {# ── Content ── #}
+    <div class="post__body prose">
+      {{ page.content | safe }}
+    </div>
+
+  </article>
+</div>
+{% endblock %}

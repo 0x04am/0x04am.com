@@ -1,0 +1,27 @@
+base_url = "https://0x04am.com"
+title = "0x04am"
+description = "AI agents, systems code, and late-night experiments."
+compile_sass = true
+build_search_index = true
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+
+[markdown]
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+
+[slugify]
+paths = "on"
+taxonomies = "on"
+
+[[taxonomies]]
+name = "tags"
+feed = true
+
+[extra]
+author = "0x04am"
+tagline = "thoughts from the night shift"
+github = "https://github.com/0x04am"
+twitter = "https://x.com/0x04am"
+youtube = "https://youtube.com/@0x04am"
