@@ -65,6 +65,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -1379,4 +1380,23 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .post-nav__inner { grid-template-columns: 1fr; }
   .post-nav__item--next { text-align: left; }
   .footer__inner { flex-direction: column; align-items: flex-start; }
+}
+
+// ═══════════════════════════
+// PAGE TRANSITIONS
+// ═══════════════════════════
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main {
+  animation: page-enter 0.25s ease-out both;
 }

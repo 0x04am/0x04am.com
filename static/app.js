@@ -284,3 +284,8 @@
     });
   }
 })();
+
+  // ──────────────────────────────────────────
+  // 4. Smooth page transitions
+  // ──────────────────────────────────────────
+  // Pure CSS — .main gets a fade-in on load. No JS needed.
