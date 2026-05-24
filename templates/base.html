@@ -115,9 +115,15 @@
           </a>
         </li>
         <li>
+          <a href="/projects/"
+             class="nav__link {% if current_path is starting_with('/projects') %}nav__link--active{% endif %}">
+            <span class="nav__link-num">04</span>projects
+          </a>
+        </li>
+        <li>
           <a href="/about/"
              class="nav__link {% if current_path is starting_with('/about') %}nav__link--active{% endif %}">
-            <span class="nav__link-num">04</span>about
+            <span class="nav__link-num">05</span>about
           </a>
         </li>
       </ul>
@@ -172,6 +178,7 @@
           <a class="footer__link" href="/">↳ home</a>
           <a class="footer__link" href="/blog/">↳ blog</a>
           <a class="footer__link" href="/tags/">↳ tags</a>
+          <a class="footer__link" href="/projects/">↳ projects</a>
           <a class="footer__link" href="/about/">↳ about</a>
         </div>
 

@@ -6,40 +6,35 @@ template = "about.html"
 
 ## Who am I?
 
-I build things at hours when nobody's watching.
+I build things. I break things. I stay up until 4am doing both.
 
-Security engineer by trade. Grad student finishing an MS in Computer Science — cybersecurity, cryptography, network defense. CompTIA Security+ holder. Led a 25-member CTF team to top 10 international placements.
+Hi, I'm Haseeb. My interests stretch across agentic infrastructure, cybersecurity, cloud, and networking. I like problems that don't have obvious answers. I like the kind of work that makes you forget to eat.
 
-But honestly, the stuff on the résumé isn't the interesting part.
+## What I do
 
-## What I actually do
+Right now I'm deep in AI agent infrastructure - orchestration runtimes, memory systems, search engines, security scanners.
 
-I build infrastructure for AI agents — the messy, unglamorous plumbing that makes autonomous systems actually work. Search engines, memory systems, security scanners, orchestration runtimes. The stuff nobody sees but everything depends on.
-
-I run a homelab out of my room — 20+ containers, WireGuard VPN, Pi-hole DNS, full observability, and a 12-agent AI system that runs while I sleep.
-
-I built an AI assistant from a D&D character sheet. He has a dream journal, a social media presence, and 14 subagents. His name is Jawz. He's been running for 200 sessions and counting.
-
-## The name
-
-`0x04` is `4` in hex. Big endian. Network byte order.
-
-4 AM is the hour where nobody's performing. You're either building because you can't stop, or you're staring at a blinking cursor wondering what went wrong. Both are valid. Both happen here.
+I also run a homelab out of my room. 20+ containers. A 12-agent AI system that keeps working while I sleep. It's part experiment, part obsession, part "I wanted to know if I could."
 
 ## Outside the terminal
 
-I read books that hit too close to home. I play games where the protagonist is an outsider. I watch shows about people who see the system for what it is and can't look away.
+I produce music in FL Studio, play chess, and always have a book going.
 
-Currently reading: *No Longer Human* by Osamu Dazai.
+**Currently playing:** Subnautica 2
 
-Currently playing: Valorant (Yoru one-trick), Marvel Rivals (Star-Lord).
+**Favorites:**
+- **Games** - Cyberpunk 2077, Disco Elysium, Baldur's Gate 3
+- **Movies** - Blade Runner 2049, Fight Club, Akira
+- **Shows** - Mr. Robot, Breaking Bad, Severance
+- **Anime** - Cyberpunk: Edgerunners, Dorohedoro
+- **Books** - *Project Hail Mary*, *Neuromancer*, *No Longer Human*
 
-Currently watching: whatever's dark, cerebral, and has an anti-hero who uses humor as a defense mechanism.
+The taste is consistent. I've made my peace with that.
 
 ## Find me
 
-- **GitHub** — [github.com/0x04am](https://github.com/0x04am)
-- **Twitter / X** — [@0x04am](https://x.com/0x04am)
-- **YouTube** — [@0x04am](https://youtube.com/@0x04am)
+- **GitHub** - [github.com/0x04am](https://github.com/0x04am)
+- **Twitter / X** - [@0x04am](https://x.com/0x04am)
+- **YouTube** - [@0x04am](https://youtube.com/@0x04am)
 
 > *"The sole way to atone for thine actions is to do better, in a new dawn. That dawn has come."*

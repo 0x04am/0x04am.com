@@ -13,18 +13,16 @@ I've started and abandoned more blogs than I care to count. Draft posts rotting 
 
 This time feels different. Probably because I'm writing this at 4am, which is when I'm either most productive or most delusional — and I've stopped being able to tell the difference.
 
+But the real reason I'm starting this? Accountability. This blog exists to hold myself accountable for the work I do — because without it, I don't work. If I write it down and put it out there, I can't pretend it didn't happen — or worse, pretend I didn't stop.
+
 ## What this blog is
 
 `0x04am` is where I write about things I'm actually building:
 
 - **AI agents** — not the hype, the hard parts. Tool calling, memory, evals, the stuff that breaks in prod.
 - **Systems programming** — Rust, Go, C when I'm feeling masochistic. Performance, concurrency, the usual chaos.
-- **Infrastructure** — containers, edge functions, the invisible plumbing that makes software actually run.
+- **Infrastructure** — containers, networking, edge functions, the invisible plumbing that makes software actually run.
 - **Everything else** — anything I learn that feels worth writing down.
-
-## What this blog isn't
-
-A content marketing play. I'm not selling a course. I'm not building an audience for an "AI startup" that pivots every three months. I'm just a person who writes code late at night and occasionally has thoughts worth sharing.
 
 ## The format
 

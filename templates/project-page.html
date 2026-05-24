@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+
+{% block content %}
+<div class="container">
+  <article class="post">
+
+    <header class="post__header">
+      <div class="post__eyebrow">// project</div>
+
+      <h1 class="post__title">{{ page.title }}</h1>
+
+      <div class="post__meta">
+        {% if page.extra.github %}
+        <span class="post__sep">·</span>
+        <a href="{{ page.extra.github }}" target="_blank" rel="noopener noreferrer">github</a>
+        {% endif %}
+        {% if page.extra.tech %}
+        <span class="post__sep">·</span>
+        {% for t in page.extra.tech %}
+        <span class="tag">{{ t }}</span>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      {% if page.description %}
+      <p class="post__description">{{ page.description }}</p>
+      {% endif %}
+    </header>
+
+    <hr class="post__rule" />
+
+    <div class="post__body prose">
+      {{ page.content | safe }}
+    </div>
+
+    {% if page.taxonomies.tags %}
+    <hr class="post__rule" />
+    <div class="project__related">
+      <h3>Related posts</h3>
+      {% set blog = get_section(path="blog/_index.md") %}
+      {% set related = [] %}
+      {% for post in blog.pages %}
+        {% if post.taxonomies.tags %}
+          {% for tag in post.taxonomies.tags %}
+            {% for ptag in page.taxonomies.tags %}
+              {% if tag == ptag and post.path not in related %}
+                {% set_global related = related | concat(with=post.path) %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+
+      {% if related | length > 0 %}
+        <ol class="post-list" reversed role="list">
+          {% for post in blog.pages %}
+            {% if post.path is in(related) %}
+              {{ m::post_card(page=post, index=loop.index) }}
+            {% endif %}
+          {% endfor %}
+        </ol>
+      {% else %}
+        <p class="text-muted">No related posts yet.</p>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="post__footer">
+      <hr class="post__rule" />
+      <div class="post__footer-inner">
+        <a href="/projects/" class="post__back-link">← back to projects</a>
+      </div>
+    </div>
+
+  </article>
+</div>
+{% endblock %}
