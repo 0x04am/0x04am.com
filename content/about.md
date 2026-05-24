@@ -6,33 +6,40 @@ template = "about.html"
 
 ## Who am I?
 
-I'm a grad student, security engineer, and builder who does his best work when everyone else is asleep.
+I build things at hours when nobody's watching.
 
-I'm finishing my MS in Computer Science with a focus on cybersecurity — network security, cryptography, counter-hacking. I hold a CompTIA Security+ and I've led a 25-member CTF team to top 10 placements internationally.
+Security engineer by trade. Grad student finishing an MS in Computer Science — cybersecurity, cryptography, network defense. CompTIA Security+ holder. Led a 25-member CTF team to top 10 international placements.
 
-But the degree is just the frame. The picture is what I build.
+But honestly, the stuff on the résumé isn't the interesting part.
 
-## What I build
+## What I actually do
 
-I build tools for AI agents — the kind of infrastructure that makes autonomous systems actually work in production.
+I build infrastructure for AI agents — the messy, unglamorous plumbing that makes autonomous systems actually work. Search engines, memory systems, security scanners, orchestration runtimes. The stuff nobody sees but everything depends on.
 
-- **[SynapsCLI](https://github.com/0x04am)** — A production agent orchestration runtime in Rust. 20+ agent types, MCP protocol, async execution, persistent memory, semantic tool routing. 15K LOC.
-- **[Glyph](https://github.com/0x04am)** — Security platform for MCP. Static scanning + real-time traffic interception. 14 detection rules for prompt injection, rug pulls, credential leaks, tool shadowing. Zero false positives on a 23-vector corpus. 16K LOC.
-- **[VelociRAG](https://github.com/0x04am)** — Open-source 4-layer retrieval engine. Vector search + BM25 + knowledge graph + metadata filtering. No PyTorch, no GPU, no API keys. Sub-200ms. Published on PyPI, AUR, and the MCP Registry. 36K LOC.
-- **[Memkoshi](https://github.com/0x04am)** — Memory system for AI agents. Three-tier extraction, HMAC integrity signing, semantic search, cross-agent compatible. 321 tests.
+I run a homelab out of my room — 20+ containers, WireGuard VPN, Pi-hole DNS, full observability, and a 12-agent AI system that runs while I sleep.
 
-I also run a homelab — 20+ Docker containers, Nginx reverse proxy, Pi-hole, WireGuard VPN, Prometheus/Grafana/Loki observability, and a 12-agent AI system that runs 24/7 on a headless Linux server in my room.
+I built an AI assistant from a D&D character sheet. He has a dream journal, a social media presence, and 14 subagents. His name is Jawz. He's been running for 200 sessions and counting.
 
-## Why "0x04am"?
+## The name
 
 `0x04` is `4` in hex. Big endian. Network byte order.
 
-4 AM is when the best code gets written and the worst decisions get made. It's when Stack Overflow is quiet and you have to actually think. It's when nobody's performing — you're either building because you want to, or you're not building at all.
+4 AM is the hour where nobody's performing. You're either building because you can't stop, or you're staring at a blinking cursor wondering what went wrong. Both are valid. Both happen here.
 
-This blog is the stuff that happens between midnight and dawn.
+## Outside the terminal
+
+I read books that hit too close to home. I play games where the protagonist is an outsider. I watch shows about people who see the system for what it is and can't look away.
+
+Currently reading: *No Longer Human* by Osamu Dazai.
+
+Currently playing: Valorant (Yoru one-trick), Marvel Rivals (Star-Lord).
+
+Currently watching: whatever's dark, cerebral, and has an anti-hero who uses humor as a defense mechanism.
 
 ## Find me
 
 - **GitHub** — [github.com/0x04am](https://github.com/0x04am)
 - **Twitter / X** — [@0x04am](https://x.com/0x04am)
 - **YouTube** — [@0x04am](https://youtube.com/@0x04am)
+
+> *"The sole way to atone for thine actions is to do better, in a new dawn. That dawn has come."*

@@ -35,8 +35,8 @@ No comment section, no engagement bait, no "smash that like button." Just words.
 ## Hello, then.
 
 ```bash
-$ echo "hello, world"
-hello, world
+$ echo "hello, friend"
+hello, friend
 $ █
 ```
 
