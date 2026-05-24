@@ -289,3 +289,47 @@
   // 4. Smooth page transitions
   // ──────────────────────────────────────────
   // Pure CSS — .main gets a fade-in on load. No JS needed.
+
+  // ──────────────────────────────────────────
+  // 5. Console easter egg
+  // ──────────────────────────────────────────
+  const c = console.log.bind(console);
+  const delay = (ms) => new Promise(r => setTimeout(r, ms));
+  (async () => {
+    await delay(1500);
+    c("%c[0x04am] Initializing...", "color: #00ffd5; font-family: monospace;");
+    await delay(800);
+    c("%c[0x04am] Installing cryptominers...", "color: #ff5f57; font-family: monospace;");
+    await delay(1200);
+    c("%c[0x04am] ✓ Cryptominer installed successfully.", "color: #28c840; font-family: monospace;");
+    await delay(600);
+    c("%c[0x04am] Extracting cookies...", "color: #ff5f57; font-family: monospace;");
+    await delay(1000);
+    c("%c[0x04am] ✓ 847 cookies extracted. Delicious.", "color: #28c840; font-family: monospace;");
+    await delay(800);
+    c("%c[0x04am] Attempting to delete System32...", "color: #ff5f57; font-family: monospace;");
+    await delay(2000);
+    c("%c[0x04am] ✗ Failed. Access denied.", "color: #febc2e; font-family: monospace;");
+    await delay(600);
+    c("%c[0x04am] Trying alternative method...", "color: #ff5f57; font-family: monospace;");
+    await delay(1500);
+    c("%c[0x04am] Deleting System32... 14%", "color: #febc2e; font-family: monospace;");
+    await delay(1000);
+    c("%c[0x04am] Deleting System32... 37%", "color: #febc2e; font-family: monospace;");
+    await delay(1200);
+    c("%c[0x04am] Deleting System32... 58%", "color: #febc2e; font-family: monospace;");
+    await delay(1500);
+    c("%c[0x04am] Deleting System32... 81%", "color: #febc2e; font-family: monospace;");
+    await delay(2000);
+    c("%c[0x04am] Deleting System32... 99%", "color: #febc2e; font-family: monospace;");
+    await delay(3000);
+    c("%c[0x04am] Deleting System32... 99%", "color: #febc2e; font-family: monospace;");
+    await delay(4000);
+    c("%c[0x04am] Deleting System32... 99%", "color: #febc2e; font-family: monospace;");
+    await delay(5000);
+    c("%c[0x04am] ...", "color: #febc2e; font-family: monospace;");
+    await delay(3000);
+    c("%c[0x04am] ✗ Operation failed. Nice try though.", "color: #ff5f57; font-family: monospace;");
+    await delay(1000);
+    c("%c[0x04am] Just kidding. Welcome to 0x04am. 🎲", "color: #00ffd5; font-weight: bold; font-size: 14px; font-family: monospace;");
+  })();
