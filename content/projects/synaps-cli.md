@@ -5,7 +5,7 @@ weight = 1
 date = 2026-05-23
 
 [extra]
-image = "/img/projects/synaps-cli.svg"
+image = "/img/projects/synaps-cli.png"
 github = "https://github.com/0x04am"
 tech = ["Rust", "Tokio", "MCP", "SQLite"]
 
