@@ -191,14 +191,14 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   gap: 1.5rem;
 }
 .nav__brand {
-  font-family: $font-mono;
-  font-size: 18px;
-  font-weight: 700;
-  color: $text;
-  letter-spacing: -0.01em;
   display: inline-flex;
-  align-items: baseline;
-  &:hover { color: $text; }
+  align-items: center;
+  &:hover { opacity: 0.85; }
+}
+
+.nav__brand-img {
+  height: 36px;
+  width: auto;
 }
 .nav__brand-bracket { color: $accent; font-weight: 400; }
 .nav__brand-text { color: $text; }
@@ -221,6 +221,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   &:hover { color: $text; background: $bg-surface; }
   &--active {
     color: $accent;
+    .nav__link-num { color: $accent; }
     &::after {
       content: "";
       position: absolute;
