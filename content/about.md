@@ -38,4 +38,4 @@ The taste is consistent. I've made my peace with that.
 - **YouTube** - [@0x04am](https://youtube.com/@0x04am)
 
 > *"The sole way to atone for thine actions is to do better, in a new dawn. That dawn has come."*
-> — Withers, Baldur's Gate 3
+> — Withers
