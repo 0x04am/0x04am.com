@@ -1,0 +1,196 @@
+/*
+ * Giscus — Night Shift Theme
+ * Matches 0x04am.com dark terminal aesthetic
+ * Cyan accent · HUD chrome · JetBrains Mono
+ */
+
+main {
+  --color-prettylights-syntax-comment: #4a4f59;
+  --color-prettylights-syntax-constant: #00ffd5;
+  --color-prettylights-syntax-entity: #6affe4;
+  --color-prettylights-syntax-storage-modifier-import: #d8dee6;
+  --color-prettylights-syntax-entity-tag: #00ffd5;
+  --color-prettylights-syntax-keyword: #00ffd5;
+  --color-prettylights-syntax-string: #6affe4;
+  --color-prettylights-syntax-variable: #d8dee6;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #ff5f57;
+  --color-prettylights-syntax-invalid-illegal-text: #f5f7fa;
+  --color-prettylights-syntax-invalid-illegal-bg: rgba(255, 95, 87, 0.15);
+  --color-prettylights-syntax-markup-heading: #00ffd5;
+  --color-prettylights-syntax-markup-italic: #d8dee6;
+  --color-prettylights-syntax-markup-bold: #d8dee6;
+  --color-prettylights-syntax-markup-deleted-text: #ff5f57;
+  --color-prettylights-syntax-markup-deleted-bg: rgba(255, 95, 87, 0.1);
+  --color-prettylights-syntax-markup-inserted-text: #28c840;
+  --color-prettylights-syntax-markup-inserted-bg: rgba(40, 200, 64, 0.1);
+  --color-prettylights-syntax-markup-changed-text: #febc2e;
+  --color-prettylights-syntax-markup-changed-bg: rgba(254, 188, 46, 0.1);
+  --color-prettylights-syntax-markup-ignored-text: #4a4f59;
+  --color-prettylights-syntax-markup-ignored-bg: #14171c;
+  --color-prettylights-syntax-meta-diff-range: #6affe4;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #2d3038;
+
+  --color-btn-text: #d8dee6;
+  --color-btn-bg: #14171c;
+  --color-btn-border: #1e222a;
+  --color-btn-shadow: 0 0 transparent;
+  --color-btn-insetShadow: 0 0 transparent;
+  --color-btn-hover-bg: #1a1e25;
+  --color-btn-hover-border: #2a2f39;
+  --color-btn-active-bg: #0e1014;
+  --color-btn-active-border: #1e222a;
+  --color-btn-selected-bg: #14171c;
+  --color-btn-primary-text: #07080a;
+  --color-btn-primary-bg: #00ffd5;
+  --color-btn-primary-border: #00ffd5;
+  --color-btn-primary-shadow: 0 0 transparent;
+  --color-btn-primary-insetShadow: 0 0 transparent;
+  --color-btn-primary-hover-bg: #6affe4;
+  --color-btn-primary-hover-border: #6affe4;
+  --color-btn-primary-selected-bg: #00ffd5;
+  --color-btn-primary-disabled-text: rgba(7, 8, 10, 0.5);
+  --color-btn-primary-disabled-bg: rgba(0, 255, 213, 0.3);
+  --color-btn-primary-disabled-border: rgba(0, 255, 213, 0.1);
+
+  --color-fg-default: #d8dee6;
+  --color-fg-muted: #7c828d;
+  --color-fg-subtle: #4a4f59;
+  --color-canvas-default: #07080a;
+  --color-canvas-overlay: #0e1014;
+  --color-canvas-inset: #07080a;
+  --color-canvas-subtle: #0e1014;
+  --color-border-default: #1e222a;
+  --color-border-muted: #1e222a;
+  --color-border-subtle: rgba(30, 34, 42, 0.5);
+  --color-neutral-muted: rgba(30, 34, 42, 0.6);
+  --color-accent-fg: #00ffd5;
+  --color-accent-emphasis: #00ffd5;
+  --color-accent-muted: rgba(0, 255, 213, 0.14);
+  --color-accent-subtle: rgba(0, 255, 213, 0.05);
+  --color-success-fg: #28c840;
+  --color-attention-fg: #febc2e;
+  --color-danger-fg: #ff5f57;
+  --color-danger-emphasis: #ff5f57;
+  --color-done-fg: #6affe4;
+
+  --color-neutral-emphasis-plus: #d8dee6;
+  --color-neutral-emphasis: #7c828d;
+  --color-neutral-muted-rgba: rgba(30, 34, 42, 0.6);
+  --color-scale-gray-7: #14171c;
+  --color-scale-gray-8: #0e1014;
+  --color-scale-gray-9: #07080a;
+
+  color: #d8dee6;
+}
+
+main .gsc-comment-box {
+  background: #0e1014;
+  border-color: #1e222a;
+}
+
+main .gsc-comment-box:focus-within {
+  border-color: #00ffd5;
+  box-shadow: 0 0 0 1px rgba(0, 255, 213, 0.22);
+}
+
+main .gsc-header .gsc-left-header em {
+  color: #7c828d;
+}
+
+main .gsc-comment {
+  background: transparent;
+  border-color: #1e222a;
+}
+
+main .gsc-comment:hover {
+  border-color: #2a2f39;
+}
+
+main .gsc-timeline {
+  border-color: #1e222a;
+}
+
+main .gsc-reply {
+  border-color: #1e222a;
+  background: transparent;
+}
+
+main .gsc-comment-box textarea {
+  background: #07080a;
+  border-color: #1e222a;
+  color: #d8dee6;
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 13px;
+}
+
+main .gsc-comment-box textarea:focus {
+  border-color: #00ffd5;
+  box-shadow: 0 0 0 1px rgba(0, 255, 213, 0.22);
+  outline: none;
+}
+
+main .gsc-comment-box .gsc-comment-box-tabs button {
+  color: #7c828d;
+  background: transparent;
+}
+
+main .gsc-comment-box .gsc-comment-box-tabs button:hover,
+main .gsc-comment-box .gsc-comment-box-tabs button.selected {
+  color: #00ffd5;
+}
+
+main .gsc-comment-box-bottom {
+  border-top-color: #1e222a;
+}
+
+main a {
+  color: #00ffd5;
+}
+
+main a:hover {
+  color: #6affe4;
+}
+
+main .gsc-reactions-button {
+  background: #0e1014;
+  border-color: #1e222a;
+  color: #7c828d;
+}
+
+main .gsc-reactions-button:hover {
+  background: #14171c;
+  border-color: rgba(0, 255, 213, 0.22);
+  color: #00ffd5;
+}
+
+main .gsc-reactions-button.has-reacted {
+  border-color: rgba(0, 255, 213, 0.22);
+  color: #00ffd5;
+  background: rgba(0, 255, 213, 0.05);
+}
+
+main .gsc-social-reaction-summary-item {
+  background: #0e1014;
+  border-color: #1e222a;
+  color: #7c828d;
+}
+
+main .gsc-social-reaction-summary-item:hover {
+  background: #14171c;
+  border-color: rgba(0, 255, 213, 0.22);
+}
+
+main .gsc-social-reaction-summary-item.has-reacted {
+  border-color: rgba(0, 255, 213, 0.22);
+  color: #00ffd5;
+  background: rgba(0, 255, 213, 0.05);
+}
+
+main .gsc-reply-box {
+  background: #0e1014;
+  border-color: #1e222a;
+}
+
+main .gsc-loading-image {
+  filter: invert(1);
+}
