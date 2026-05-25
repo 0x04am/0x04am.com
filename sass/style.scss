@@ -936,6 +936,19 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   }
 }
 
+// ── Post comments (Giscus) ──
+.post__comments {
+  margin-top: 2rem;
+}
+.post__comments-title {
+  font-family: $font-mono;
+  font-size: 11px;
+  color: $text-dim;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
 // ── Post footer / nav ──
 .post__footer {
   border-top: 1px solid $border;
