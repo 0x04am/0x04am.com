@@ -55,7 +55,7 @@
       {% if related | length > 0 %}
         <ol class="post-list" reversed role="list">
           {% for post in blog.pages %}
-            {% if post.path is in(related) %}
+            {% if post.path in related %}
               {{ m::post_card(page=post, index=loop.index) }}
             {% endif %}
           {% endfor %}

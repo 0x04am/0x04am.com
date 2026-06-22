@@ -17,4 +17,4 @@ Open-source 4-layer retrieval engine fusing vector search, BM25 keywords, knowle
 
 ONNX-only. No PyTorch, no GPU, no API keys. Sub-200ms warm search. Ships with MCP server, CLI, and Unix socket daemon.
 
-Published on PyPI, AUR, and the official MCP Registry. 654 tests, 36K LOC.
+Published on PyPI, AUR, and the official MCP Registry. 550+ tests, ~24K LOC.
