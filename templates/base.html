@@ -41,6 +41,27 @@
   " />
   <meta property="og:type" content="{% if page %}article{% else %}website{% endif %}" />
   <meta property="og:url" content="{{ current_url | safe }}" />
+  {%- set img_path = "img/wordmark-2048.png" -%}
+  {%- if section.extra.image is defined -%}{%- set_global img_path = section.extra.image -%}{%- endif -%}
+  {%- if page.extra.image is defined -%}{%- set_global img_path = page.extra.image -%}{%- endif -%}
+  <meta property="og:image" content="{{ get_url(path=img_path) }}" />
+  <meta property="og:locale" content="en_US" />
+  {%- if page.date %}
+  <meta property="article:published_time" content="{{ page.date }}" />
+  {%- if page.updated %}<meta property="article:modified_time" content="{{ page.updated }}" />{% endif %}
+  <meta property="article:author" content="{{ config.extra.author }}" />
+  {%- endif %}
+
+  {# ── Twitter Card ── #}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% elif section.title %}{{ section.title }}{% else %}{{ config.title }}{% endif %}" />
+  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% elif section.description %}{{ section.description }}{% else %}{{ config.description }}{% endif %}" />
+  <meta name="twitter:image" content="{{ get_url(path=img_path) }}" />
+  <meta name="twitter:site" content="@0x04am" />
+  <meta name="twitter:creator" content="@0x04am" />
+
+  <meta name="author" content="{{ config.extra.author }}" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
 
   <link rel="canonical" href="{{ current_url | safe }}" />
 
@@ -59,6 +80,17 @@
         rel="stylesheet" />
 
   <link rel="stylesheet" href="/style.css" />
+
+  {# ── Structured data (JSON-LD) ── #}
+  {%- if page.date %}
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | json_encode | safe }},"description":{{ page.description | default(value=config.description) | json_encode | safe }},"datePublished":"{{ page.date }}","dateModified":"{{ page.updated | default(value=page.date) }}","author":{"@type":"Person","name":{{ config.extra.author | json_encode | safe }},"url":"{{ config.extra.github }}"},"image":"{{ get_url(path=img_path) }}","url":"{{ current_url | safe }}","mainEntityOfPage":"{{ current_url | safe }}","publisher":{"@type":"Organization","name":{{ config.title | json_encode | safe }},"logo":{"@type":"ImageObject","url":"{{ get_url(path='img/wordmark-2048.png') }}"}}}
+  </script>
+  {%- else %}
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":{{ config.title | json_encode | safe }},"url":"{{ config.base_url }}","description":{{ config.description | json_encode | safe }},"author":{"@type":"Person","name":{{ config.extra.author | json_encode | safe }},"url":"{{ config.extra.github }}"}}
+  </script>
+  {%- endif %}
 
   {% block extra_head %}{% endblock %}
 </head>

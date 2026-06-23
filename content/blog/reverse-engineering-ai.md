@@ -3,6 +3,9 @@ title = "Reverse Engineering Artificial Intelligence - Part 1"
 date = 2026-05-28
 description = "We're reverse engineering LLMs today. Walking in knowing nothing, walking out understanding the whole pipeline. Pretraining, tokenization, transformers, RLHF - all of it."
 
+[extra]
+image = "/img/blog/transformer-3d.webp"
+
 [taxonomies]
 tags = ["ai", "llm", "deep-dive"]
 +++
