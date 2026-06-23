@@ -27,7 +27,7 @@ So let's dive right into the nitty gritty. There are multiple stages into gettin
 
 Now for this stage, you're gonna need a lot of data, like a whole lot. Karpathy mentions the following website: [FineWeb](https://huggingface.co/spaces/HuggingFaceFW/blogpost-fineweb-v1) which is basically 44TB of curated internet web pages. Sounds like a lot, but in the grand scheme of things it isn't. The entire internet is worth petabytes. 44TB seems small in regards to that, right?
 
-![FineWeb dataset processing pipeline](/img/blog/fineweb.png)
+![FineWeb dataset processing pipeline](/img/blog/fineweb.webp)
 
 Most providers like Anthropic, Google and OpenAI have their own versions of FineWeb for internal training. These docs need to be diverse and of high quality. What you feed in is what you get out.
 
@@ -65,7 +65,7 @@ This architecture is called the **Transformer** and is the T in GPT. It's a stac
 
 Check out [bbycroft.net/llm](https://bbycroft.net/llm) to see a 3D visualisation of a transformer.
 
-![3D Transformer visualization](/img/blog/transformer-3d.png)
+![3D Transformer visualization](/img/blog/transformer-3d.webp)
 
 ### Inference
 
