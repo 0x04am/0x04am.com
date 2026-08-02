@@ -1,7 +1,7 @@
 +++
 title = "Glyph"
 description = "Security platform for Model Context Protocol. Static scanning + real-time traffic interception."
-weight = 2
+weight = 3
 date = 2026-05-23
 
 [extra]

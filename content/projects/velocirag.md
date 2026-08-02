@@ -1,7 +1,7 @@
 +++
 title = "VelociRAG"
 description = "4-layer retrieval engine. Vector + BM25 + knowledge graph + metadata. No GPU, no API keys."
-weight = 3
+weight = 4
 date = 2026-05-23
 
 [extra]

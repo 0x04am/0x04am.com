@@ -4,7 +4,7 @@
 {% block content %}
 {% set blog = get_section(path="blog/_index.md") %}
 {% set tags = get_taxonomy(kind="tags") %}
-{% set recent = blog.pages | slice(end=5) %}
+{% set recent = blog.pages | slice(end=3) %}
 
 <section class="hero">
   <div class="hero__bg" aria-hidden="true">
@@ -90,7 +90,7 @@
       {% endfor %}
     </ol>
 
-    {% if blog.pages | length > 5 %}
+    {% if blog.pages | length > 3 %}
     <div style="text-align:center; padding: 2rem 0 1rem;">
       <a href="/blog/" class="btn btn--ghost">
         ↳ all transmissions ({{ blog.pages | length }})

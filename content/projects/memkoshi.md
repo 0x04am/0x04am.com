@@ -1,7 +1,7 @@
 +++
 title = "Memkoshi"
 description = "Memory system for AI agents. Three-tier extraction, HMAC signing, cross-agent compatible."
-weight = 4
+weight = 5
 date = 2026-05-23
 
 [extra]

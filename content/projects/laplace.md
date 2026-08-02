@@ -1,7 +1,7 @@
 +++
 title = "Laplace"
 description = "Physics engine in Rust. Newtonian mechanics, special/general relativity, WGPU renderer."
-weight = 5
+weight = 6
 date = 2026-05-23
 
 [extra]
