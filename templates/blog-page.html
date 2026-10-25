@@ -42,6 +42,11 @@
           {{ page.date | date(format="%B %d, %Y") }}
         </time>
 
+        {% if page.extra.author %}
+        <span class="post__meta-sep" aria-hidden="true">·</span>
+        <span class="post__meta-author" itemprop="author">by {{ page.extra.author }}</span>
+        {% endif %}
+
         {% if page.extra.updated %}
         <span class="post__meta-sep" aria-hidden="true">·</span>
         <span>updated {{ page.extra.updated | date(format="%B %d, %Y") }}</span>
