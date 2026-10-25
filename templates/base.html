@@ -49,7 +49,7 @@
   {%- if page.date %}
   <meta property="article:published_time" content="{{ page.date }}" />
   {%- if page.updated %}<meta property="article:modified_time" content="{{ page.updated }}" />{% endif %}
-  <meta property="article:author" content="{{ config.extra.author }}" />
+  <meta property="article:author" content="{% if page.extra.author is defined %}{{ page.extra.author }}{% else %}{{ config.extra.author }}{% endif %}" />
   {%- endif %}
 
   {# ── Twitter Card ── #}
@@ -60,7 +60,7 @@
   <meta name="twitter:site" content="@0x04am" />
   <meta name="twitter:creator" content="@0x04am" />
 
-  <meta name="author" content="{{ config.extra.author }}" />
+  <meta name="author" content="{% if page.extra.author is defined %}{{ page.extra.author }}{% else %}{{ config.extra.author }}{% endif %}" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
 
   <link rel="canonical" href="{{ current_url | safe }}" />
@@ -84,7 +84,7 @@
   {# ── Structured data (JSON-LD) ── #}
   {%- if page.date %}
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | json_encode | safe }},"description":{{ page.description | default(value=config.description) | json_encode | safe }},"datePublished":"{{ page.date }}","dateModified":"{{ page.updated | default(value=page.date) }}","author":{"@type":"Person","name":{{ config.extra.author | json_encode | safe }},"url":"{{ config.extra.github }}"},"image":"{{ get_url(path=img_path) }}","url":"{{ current_url | safe }}","mainEntityOfPage":"{{ current_url | safe }}","publisher":{"@type":"Organization","name":{{ config.title | json_encode | safe }},"logo":{"@type":"ImageObject","url":"{{ get_url(path='img/wordmark-2048.png') }}"}}}
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":{{ page.title | json_encode | safe }},"description":{{ page.description | default(value=config.description) | json_encode | safe }},"datePublished":"{{ page.date }}","dateModified":"{{ page.updated | default(value=page.date) }}","author":{% if page.extra.author is defined %}{"@type":"Person","name":{{ page.extra.author | json_encode | safe }}}{% else %}{"@type":"Person","name":{{ config.extra.author | json_encode | safe }},"url":"{{ config.extra.github }}"}{% endif %},"image":"{{ get_url(path=img_path) }}","url":"{{ current_url | safe }}","mainEntityOfPage":"{{ current_url | safe }}","publisher":{"@type":"Organization","name":{{ config.title | json_encode | safe }},"logo":{"@type":"ImageObject","url":"{{ get_url(path='img/wordmark-2048.png') }}"}}}
   </script>
   {%- else %}
   <script type="application/ld+json">

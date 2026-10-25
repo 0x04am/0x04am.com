@@ -768,6 +768,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   color: $text-muted;
 }
 .post__meta-date { color: $text; }
+.post__meta-author { color: $accent; }
 .post__meta-sep { color: $text-faint; }
 .post__meta-tags { display: inline-flex; gap: 4px; }
 
